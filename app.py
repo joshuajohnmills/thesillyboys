@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template,jsonify
 from flask_cors import CORS
 import json
 
@@ -13,8 +13,8 @@ CORS(app)
 def index():
     return render_template("index.html",nposts = len(topics), topics = topics,topicdesc = topicdesc)
 
-pins = ({"lon": 144.42, "lat": -37.7, "message" :"someones house is here"})
-@app.route("/get_pins")
+pins = {"lon": 144.42, "lat": -37.9, "message" :"good food"}
+@app.route("/get_pins",methods = ["GET"])
 def _pins():
     return pins
 
