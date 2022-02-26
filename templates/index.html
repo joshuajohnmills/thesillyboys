@@ -39,7 +39,7 @@
     <div id = "toolbar">
         {% for i in range(0,nposts)%}
         <div class = "topicpost">
-        <h1>{{topic[i]}}</h1>
+        <h1>{{topics[i]}}</h1>
         <p>{{topicdesc[i]}}</p>
       </div>
         {% endfor %}
@@ -63,7 +63,12 @@ L.control.scale({imperial: true, metric: true}).addTo(map);
 var create = false;
 // show a marker on the map
 
-
+$.get("/get_pins", function(data){
+  for (let i  = 0; i<data.length;i++){
+    console.log(data[i])
+    L.marker({lon:data[i].lon,lat:data[i].lat}).bindPopup(data[i].message).addTo(map)
+  }
+})
 L.marker({lon: 144.42, lat: -37.7}).bindPopup('Stus House').addTo(map);
 L.marker({lon: 144.43, lat: -37.705}).bindPopup('Josh House').addTo(map);
 L.marker({lon: 144.403, lat: -37.708}).bindPopup('Dans House').addTo(map);
@@ -81,7 +86,7 @@ map.on('click', function(e) {
 
 
     $.post(
-        "http://192.168.43.109:5000/event_post",
+        "/event_post",
         JSON.stringify({"message": message,"latlon" : [ e.latlng.lat,e.latlng.lng] })
     )
     
