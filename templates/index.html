@@ -1,4 +1,54 @@
-
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+      html, body {
+        height: 100%;
+        padding: 0;
+        margin: 0;
+      }
+      #map {
+        /* configure the size of the map */
+        width: 85%;
+        height: 100%;
+        margin-left: 15%;
+      }
+      #main{
+          width: 100%;
+          height:100%
+      }
+      #toolbar{
+          height:100%;
+          width: 14%;
+          background-color: rgb(179, 211, 219);
+          float:left;
+          border: solid black 3px;
+      }
+      .topicpost{
+        border:solid navy 3px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id = "main">
+    <div id = "toolbar">
+        {% for i in range(0,nposts)%}
+        <div class = "topicpost">
+        <h1>{{topic[i]}}</h1>
+        <p>{{topicdesc[i]}}</p>
+      </div>
+        {% endfor %}
+        <input id = "input_box" type="text" placeholder="describe what you saw" >
+        <button onclick="makeReadyMarker()">Add to map</button>
+    </div>
+    <div id="map"></div>
+    <script >
+      
 // initialize Leaflet
 var map = L.map('map').setView({lon: 144.4, lat: -37.7}, 13);
 
@@ -28,6 +78,8 @@ map.on('click', function(e) {
         L.marker({lon: e.latlng.lng, lat:  e.latlng.lat}).bindPopup(message).addTo(map);
         create = false;
     }
+
+
     $.post(
         "http://192.168.43.109:5000/event_post",
         JSON.stringify({"message": message,"latlon" : [ e.latlng.lat,e.latlng.lng] })
@@ -51,3 +103,8 @@ const createNewMarker = (inputlon,inputlat,text) => {
     L.marker({lon: inputlon, lat: inputlat}).bindPopup(text).addTo(map);
 }
 */
+    </script>
+    </script>
+    </div>
+  </body>
+</html> 
