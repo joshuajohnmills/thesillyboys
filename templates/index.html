@@ -50,7 +50,7 @@
     <script >
       
 // initialize Leaflet
-var map = L.map('map').setView({lon: 144.4, lat: -37.7}, 13);
+var map = L.map('map').setView({lon: 144.9631, lat: -37.8136}, 12);
 
 // add the OpenStreetMap tiles
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -64,8 +64,12 @@ var create = false;
 // show a marker on the map
 
 window.onload = function(){$.get("/get_pins", function(data){  
-  console.log(data)
-  L.marker({lon: data.lon, lat:  data.lat}).bindPopup(data.message).addTo(map);
+  console.log(data);
+  items = data.posts;
+  for(let i = 0;i<items.length;i++){
+    L.marker({lon: items[i].lon, lat:  items[i].lat}).bindPopup(items[i].message).addTo(map);
+  }
+  
 })};
 
 
@@ -77,7 +81,7 @@ map.on('click', function(e) {
       create = false;
       $.post(
           "/event_post",
-          JSON.stringify({"message": message,"latlon" : [ e.latlng.lat,e.latlng.lng] })
+          JSON.stringify({"lon" : e.latlng.lng, "lat" : e.latlng.lat,"message": message })
       )
       create = false;
     }
