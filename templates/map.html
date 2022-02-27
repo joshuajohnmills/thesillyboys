@@ -113,6 +113,9 @@
 // initialize Leaflet 
 var map = L.map('map').setView({lon: 144.9631, lat: -37.8136}, 10);
 
+
+
+
 // add the OpenStreetMap tiles
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 maxZoom: 19,
@@ -132,7 +135,13 @@ window.onload = function(){$.get("/get_pins", function(data){
   }  
 })};
 
-
+setInterval(function(){$.get("/get_pins", function(data){  
+  console.log(data);
+  items = data.posts;
+  for(let i = 0;i<items.length;i++){
+    L.marker({lon: items[i].lon, lat:  items[i].lat}).bindPopup(items[i].message).addTo(map);
+  }  
+})}, 1500)
 
 
 function openForm() {
@@ -180,6 +189,7 @@ map.on("click", function(e) {
               <label for="Categ">Category:</label><br>
               <input type="text" id="Categ" name="Categ" placeholder="Category..."><br><br>
               <button onclick = 'submitMarker()'> Submit </button>
+              <button onclick = 'cancelMarker()'> Cancel </button>
           </div>`;
           tempMarker.bindPopup(popupContent,{
             keepInView: true,
