@@ -28,6 +28,7 @@
           background-color: rgb(179, 211, 219);
           float:left;
           border: solid black 3px;
+          overflow-y:scroll;
       }
       .topicpost{
         border:solid navy 3px;
@@ -37,14 +38,15 @@
   <body>
     <div id = "main">
     <div id = "toolbar">
+      <input id = "input_box" type="text" placeholder="describe what you saw" >
+      <button onclick="makeReadyMarker()">Add to map</button>
         {% for i in range(0,nposts)%}
         <div class = "topicpost">
         <h1>{{topics[i]}}</h1>
         <p>{{topicdesc[i]}}</p>
       </div>
         {% endfor %}
-        <input id = "input_box" type="text" placeholder="describe what you saw" >
-        <button onclick="makeReadyMarker()">Add to map</button>
+
     </div>
     <div id="map"></div>
     <script >
@@ -64,6 +66,7 @@ var create = false;
 // show a marker on the map
 
 window.onload = function(){$.get("/get_pins", function(data){  
+  
   console.log(data);
   items = data.posts;
   for(let i = 0;i<items.length;i++){

@@ -2,7 +2,7 @@ from pprint import pprint
 import rds_config
 import pymysql
 
-class client:
+class Client:
     def __init__(self):
         # initialise MySQL database credentials from file
         self.rds_host  = rds_config.db_endpoint
@@ -12,7 +12,7 @@ class client:
         self.port = 3306
 
         # connect
-        self.conn = self.__conn__()
+        
 
     def __conn__(self):
         '''
@@ -20,7 +20,7 @@ class client:
         '''
 
         # return connection
-        return pymysql.connect(host=self.rds_host, 
+        self.conn=   pymysql.connect(host=self.rds_host, 
                                 user=self.name, 
                                 password=self.password,
                                 db=self.db_name,
@@ -43,7 +43,9 @@ class client:
             # return result as dictionary
             return rows
 
-
+    def close(self):
+        
+        self.conn.close()
 # example operation of class
 if __name__ == '__main__':
 
