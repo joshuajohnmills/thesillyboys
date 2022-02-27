@@ -1,4 +1,3 @@
-from pprint import pprint
 import rds_config
 import pymysql
 
@@ -44,13 +43,20 @@ class Client:
             return rows
 
     def close(self):
-        
+
         self.conn.close()
+
+    def insert(self,queryString):
+
+        with self.conn.cursor() as cur:
+            cur.execute(queryString)
+        
+    
 # example operation of class
 if __name__ == '__main__':
 
     # initialise client with connection
-    cl = client()
+    cl = Client()
 
     # run a query
     response = cl.query('SELECT * FROM crowd')
@@ -59,4 +65,4 @@ if __name__ == '__main__':
     cl.conn.close()
 
     # print result
-    pprint(response)
+    print(response)

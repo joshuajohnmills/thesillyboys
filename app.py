@@ -28,11 +28,6 @@ def index():
 
     return render_template("map.html",nposts = len(crowds), topics = crowds,topicdesc = crowddesc)
 
-pins = {"posts":[{"lon": 144.98, "lat": -37.8199, "message" :"good food"},
-                 {"lon": 144.91, "lat": -37.8236, "message" :"bad food"},
-                 {"lon": 144.931, "lat": -37.8636, "message" :"good drinks"}]}
-
-
 @app.route("/get_pins/",methods = ["GET"])
 def _pins():
 
@@ -55,8 +50,17 @@ def _pins():
 @app.route("/event_post", methods=["POST"])
 def _x():
     added_pin = json.loads(request.get_data())
-    pins["posts"].append(added_pin)
-    print(pins)
+    
+    DBClient.__conn__()
+    DBClient.insert(
+        f"""
+            INSERT INTO report (crowd_id,rep_lat,rep_lon,rep_desc, rep_time)
+            VALUES (1,{added_pin["lat"]},{added_pin["lon"]},"{added_pin["message"]}", CURRENT_TIMESTAMP);
+        """
+    )
+    DBClient.conn.commit()
+    DBClient.close()
+
     return "POSTED"
 
 app.run(host="0.0.0.0",debug= True)

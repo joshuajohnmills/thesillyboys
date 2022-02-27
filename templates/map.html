@@ -66,8 +66,6 @@ var create = false;
 // show a marker on the map
 
 window.onload = function(){$.get("/get_pins", function(data){  
-  
-  console.log(data);
   items = data.posts;
   for(let i = 0;i<items.length;i++){
     L.marker({lon: items[i].lon, lat:  items[i].lat}).bindPopup(items[i].message).addTo(map);
@@ -76,6 +74,13 @@ window.onload = function(){$.get("/get_pins", function(data){
 })};
 
 
+setInterval(function(){$.get("/get_pins", function(data){  
+  items = data.posts;
+  for(let i = 0;i<items.length;i++){
+    L.marker({lon: items[i].lon, lat:  items[i].lat}).bindPopup(items[i].message).addTo(map);
+  }
+  
+})}, 60000)
 
 map.on('click', function(e) {
     //
