@@ -135,14 +135,15 @@ window.onload = function(){$.get("/get_pins", function(data){
   }  
 })};
 
-setInterval(function(){$.get("/get_pins", function(data){  
-  console.log(data);
+/*
+setInterval(function(){$.get("/get_pins", function(data){ 
+
   items = data.posts;
   for(let i = 0;i<items.length;i++){
     L.marker({lon: items[i].lon, lat:  items[i].lat}).bindPopup(items[i].message).addTo(map);
   }  
-})}, 1500)
-
+})}, 10000)
+*/
 
 function openForm() {
   document.getElementById("myForm").style.display = "block";
@@ -159,7 +160,6 @@ var tempMarker;
 
 const submitMarker = () => {
 
-
     map.removeLayer(tempMarker);
     message = document.querySelector('#Desc').value
     L.marker({lon: lastClickLon, lat:  lastClickLat}).bindPopup(message).addTo(map);
@@ -168,6 +168,12 @@ const submitMarker = () => {
       "/event_post",
       JSON.stringify({"lon" : lastClickLon, "lat" : lastClickLat,"message": message })
     )
+    document.querySelector('#Desc').value = ""
+    document.querySelector('#Categ').value = ""
+}
+
+const cancelMarker = () => {
+    map.removeLayer(tempMarker);
     document.querySelector('#Desc').value = ""
     document.querySelector('#Categ').value = ""
 }
