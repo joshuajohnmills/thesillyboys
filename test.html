@@ -1,28 +1,33 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
-<script type="text/javascript">
-$(function() {
-  $("#equipment").click(function(evt) {
-    $("#message").css({
-      top: evt.pageY + 5,
-      left: evt.pageX + 5
-    }).show();
-  });
-});
-</script>
-<style type="text/css">
-html, body, div { margin: 0; padding: 0; border: 0 none; }
-#wrapper { margin: 0 auto; width: 600px; }
-#equipment { color: green; }
-#message { display: none; position: absolute; text-align: center; padding: 10px; width: 120px; background: red; color: white; font-weight: bold; }
+<meta charset="utf-8">
+<title>CSS Overlaying One DIV over Another DIV</title>
+<style> 
+    .container{
+        width: 200px;
+        height: 200px;
+        position: relative;
+        margin: 20px;
+    }
+    .box{
+        width: 100%;
+        height: 100%;            
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0.8;  /* for demo purpose  */
+    }
+    .stack-top{
+        z-index: 9;
+        margin: 20px; /* for demo purpose  */
+    }
 </style>
 </head>
 <body>
-<div id="wrapper">
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor <span id="equipment">incididunt ut labore et dolore</span> magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-<div id="message">This is a message</div>
-</div>
+    <div class="container">
+        <div class="box" style="background: red;"></div>
+        <div class="box stack-top" style="background: blue;"></div>
+    </div>
 </body>
 </html>
