@@ -12,7 +12,11 @@ app = Flask(__name__)
 
 
 @app.route("/")
-def index():
+def _index():
+    return render_template("index.html")
+
+@app.route("/map")
+def _map():
 
     DBClient.__conn__()
     query_reponse  = DBClient.query(

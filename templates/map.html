@@ -81,13 +81,12 @@
    
     <!-- Navbar -->
     <div class="w3-bar w3-white w3-large">   
-      <a href="#" class="w3-bar-item w3-button w3-light-grey w3-mobile">        
-        <img class="w3-image" src="logo_unihack-removebg-preview.png" alt="CrowdMap" width="25" height="25"/>CrowdMap</a>   
-        <a href="#" class="w3-bar-item w3-button w3-mobile">About us</a>   
-        <a href="#" class="w3-bar-item w3-button w3-mobile">Public Services</a>   
-        <a href="#" class="w3-bar-item w3-button w3-mobile">Run a CrowdMap Project</a>   
-        <a href="#" class="w3-bar-item w3-button w3-right w3-light-grey w3-mobile"><img src="cd-avatar.svg" alt="avatar" width="25" height="25"/><span>Sign up or Login</span> </div>
-      <div class="w3-bar">
+      <a href="#" class="w3-bar-item w3-button w3-light-grey">        
+        <img class="w3-image" src="/static/logo_unihack-removebg-preview.png" alt="CrowdMap" width="25" height="25"/>CrowdMap</a>   
+        <a href="#" class="w3-bar-item w3-button">About us</a>   
+        <a href="#" class="w3-bar-item w3-button">Public Services</a>   
+        <a href="#" class="w3-bar-item w3-button">Run a CrowdMap Project</a>   
+        <a href="#" class="w3-bar-item w3-button w3-right w3-mobile"><i class="fa fa-user"></i>  Sign up or Login</div></a>      <div class="w3-bar">
       <div class="w3-bar w3-black w3-card">
         {% for i in range(0,nposts)%}
         <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
@@ -99,7 +98,7 @@
     <div id = "main">
     <div id = "toolbar">
         <input id = "input_box" type="text" placeholder="What you see" >
-        <button id= "button1" onclick="openForm()">+ Report Something</button>
+        <button id= "button1" onclick="makeReadyMarker()">+ Report Something</button>
     </div>
     <div id="map"></div>
 
@@ -131,8 +130,7 @@ window.onload = function(){$.get("/get_pins", function(data){
   items = data.posts;
   for(let i = 0;i<items.length;i++){
     L.marker({lon: items[i].lon, lat:  items[i].lat}).bindPopup(items[i].message).addTo(map);
-  }
-  
+  }  
 })};
 
 function openForm() {
