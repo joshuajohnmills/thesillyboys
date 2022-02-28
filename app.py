@@ -49,8 +49,6 @@ def _pins():
     return pins
 
 
-
-
 @app.route("/event_post", methods=["POST"])
 def _x():
     added_pin = json.loads(request.get_data())
@@ -66,5 +64,3 @@ def _x():
     DBClient.close()
 
     return "POSTED"
-
-app.run(host="0.0.0.0",debug= True)
